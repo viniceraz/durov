@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$KAKASHKA — Deployed by Pavel Durov</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6B00;
+    --yellow: #FFD600;
+    --brown-dark: #5C2D0A;
+    --brown-mid: #8B4513;
+    --brown-light: #C47C3E;
+    --cream: #FFF8E7;
+    --black: #1A0A00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--orange);
+    font-family: 'Baloo 2', cursive;
+    color: var(--black);
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E💩%3C/text%3E%3C/svg%3E") 16 16, auto;
+  }
+
+  /* Zigzag bg pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 2px,
+      transparent 2px, transparent 20px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 40px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩💩';
+    position: absolute;
+    bottom: -10px;
+    left: -20px;
+    right: -20px;
+    font-size: 48px;
+    letter-spacing: 10px;
+    opacity: 0.12;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: scrollEmoji 12s linear infinite;
+  }
+
+  @keyframes scrollEmoji {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .badge {
+    background: var(--yellow);
+    color: var(--brown-dark);
+    font-family: 'Lilita One', cursive;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 24px;
+    border-radius: 999px;
+    border: 3px solid var(--brown-dark);
+    box-shadow: 3px 3px 0 var(--brown-dark);
+    margin-bottom: 30px;
+    animation: popIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .logo-wrap {
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+  }
+
+  .logo-img {
+    width: min(520px, 90vw);
+    border-radius: 24px;
+    border: 6px solid var(--brown-dark);
+    box-shadow: 8px 8px 0 var(--brown-dark), 0 0 80px rgba(255,214,0,0.5);
+    display: block;
+    animation: popIn 0.7s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.7) rotate(-5deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  .ticker {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(64px, 14vw, 120px);
+    color: var(--yellow);
+    -webkit-text-stroke: 4px var(--brown-dark);
+    text-shadow: 6px 6px 0 var(--brown-dark);
+    line-height: 1;
+    margin-top: 24px;
+    animation: popIn 0.7s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;
+    letter-spacing: 2px;
+  }
+
+  .tagline {
+    font-size: clamp(16px, 3.5vw, 22px);
+    font-weight: 800;
+    color: var(--cream);
+    text-shadow: 2px 2px 0 var(--brown-dark);
+    max-width: 600px;
+    text-align: center;
+    margin-top: 12px;
+    animation: popIn 0.7s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 36px;
+    animation: popIn 0.7s 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .btn {
+    font-family: 'Lilita One', cursive;
+    font-size: 18px;
+    padding: 14px 36px;
+    border-radius: 14px;
+    border: 4px solid var(--brown-dark);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.1s, box-shadow 0.1s;
+    letter-spacing: 1px;
+  }
+
+  .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--brown-dark) !important; }
+
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--brown-dark);
+    box-shadow: 5px 5px 0 var(--brown-dark);
+  }
+  .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--brown-dark); }
+
+  .btn-secondary {
+    background: var(--brown-dark);
+    color: var(--yellow);
+    box-shadow: 5px 5px 0 #000;
+  }
+  .btn-secondary:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 #000; }
+
+  /* ===== DIVIDER ===== */
+  .wave-divider {
+    width: 100%;
+    line-height: 0;
+    z-index: 1;
+    position: relative;
+  }
+  .wave-divider svg { display: block; width: 100%; }
+
+  /* ===== CONTRACT ===== */
+  .contract-bar {
+    background: var(--brown-dark);
+    color: var(--yellow);
+    padding: 18px 20px;
+    text-align: center;
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(11px, 2.5vw, 15px);
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    border-top: 4px solid var(--yellow);
+    border-bottom: 4px solid var(--yellow);
+    word-break: break-all;
+  }
+
+  .contract-bar span {
+    display: inline-block;
+    background: rgba(255,214,0,0.15);
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: 2px dashed var(--yellow);
+    margin-top: 6px;
+    font-family: monospace;
+    font-size: clamp(10px, 2vw, 13px);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .contract-bar span:hover { background: rgba(255,214,0,0.3); }
+
+  .contract-label {
+    font-family: 'Lilita One', cursive;
+    font-size: 11px;
+    letter-spacing: 3px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ===== SECTIONS WRAPPER ===== */
+  .sections {
+    background: var(--yellow);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== PROOF SECTION ===== */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 24px;
+  }
+
+  .section-title {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(36px, 7vw, 64px);
+    color: var(--brown-dark);
+    -webkit-text-stroke: 2px var(--brown-dark);
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    text-align: center;
+    font-size: 17px;
+    color: var(--brown-mid);
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+
+  /* Proof chain */
+  .proof-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .proof-card {
+    background: var(--cream);
+    border: 4px solid var(--brown-dark);
+    border-radius: 18px;
+    padding: 20px 24px;
+    box-shadow: 6px 6px 0 var(--brown-dark);
+    position: relative;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .proof-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--brown-dark); }
+
+  .proof-step {
+    position: absolute;
+    top: -16px;
+    left: 20px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Lilita One', cursive;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 3px solid var(--brown-dark);
+    letter-spacing: 1px;
+  }
+
+  .proof-card h3 {
+    font-family: 'Lilita One', cursive;
+    font-size: 20px;
+    color: var(--brown-dark);
+    margin-bottom: 8px;
+    margin-top: 6px;
+  }
+
+  .proof-card p {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+
+  .proof-card .address {
+    font-family: monospace;
+    background: rgba(255,107,0,0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--brown-dark);
+    border: 1.5px dashed var(--brown-mid);
+    display: inline-block;
+    margin-top: 8px;
+    word-break: break-all;
+  }
+
+  .tx-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    color: #4ade80;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+    border: 1.5px solid #4ade80;
+  }
+  .tx-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .proof-link {
+    color: var(--orange);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    margin-top: 8px;
+    display: inline-block;
+    border-bottom: 2px dashed var(--orange);
+  }
+  .proof-link:hover { color: var(--brown-dark); border-color: var(--brown-dark); }
+
+  .proof-arrow {
+    text-align: center;
+    font-size: 32px;
+    color: var(--brown-dark);
+    animation: bounce 1s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+  /* ===== TOKENOMICS ===== */
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .token-card {
+    background: var(--orange);
+    border: 4px solid var(--brown-dark);
+    border-radius: 18px;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: 5px 5px 0 var(--brown-dark);
+    transition: transform 0.15s;
+  }
+  .token-card:hover { transform: translate(-3px,-3px) rotate(1deg); }
+
+  .token-card .emoji { font-size: 40px; display: block; margin-bottom: 10px; }
+  .token-card .val {
+    font-family: 'Lilita One', cursive;
+    font-size: 28px;
+    color: var(--yellow);
+    -webkit-text-stroke: 1.5px var(--brown-dark);
+    text-shadow: 3px 3px 0 var(--brown-dark);
+  }
+  .token-card .label { font-size: 13px; font-weight: 700; color: var(--cream); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ===== TWEET SECTION ===== */
+  .tweet-embed {
+    background: #000;
+    border: 4px solid var(--brown-dark);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 6px 6px 0 var(--brown-dark);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .tweet-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .tweet-avatar { width: 44px; height: 44px; border-radius: 50%; background: #333; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .tweet-name { font-weight: 800; color: #fff; font-size: 15px; }
+  .tweet-handle { color: #888; font-size: 13px; }
+  .tweet-body { color: #fff; font-size: 15px; line-height: 1.6; }
+  .tweet-body .highlight { color: #1d9bf0; font-weight: 700; }
+  .tweet-body .green { color: #4ade80; }
+  .tweet-footer { margin-top: 14px; color: #888; font-size: 13px; border-top: 1px solid #222; padding-top: 12px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--brown-dark);
+    color: var(--yellow);
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .footer .footer-logo {
+    font-family: 'Lilita One', cursive;
+    font-size: 36px;
+    color: var(--yellow);
+    -webkit-text-stroke: 1.5px var(--brown-dark);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+    margin-bottom: 8px;
+  }
+  .footer p { opacity: 0.7; line-height: 1.8; }
+  .footer .disclaimer { font-size: 11px; margin-top: 14px; opacity: 0.5; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  /* Floating poops bg deco */
+  .poop-deco {
+    position: absolute;
+    pointer-events: none;
+    font-size: 60px;
+    opacity: 0.07;
+    animation: floatPoop 8s ease-in-out infinite;
+  }
+  @keyframes floatPoop {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(20deg); }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ===== TICKER TAPE ===== */
+  .ticker-tape {
+    background: var(--brown-dark);
+    color: var(--yellow);
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+    font-family: 'Lilita One', cursive;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .cta-row { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 320px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER TAPE TOP -->
+<div class="ticker-tape">
+  <div class="ticker-inner">
+    <span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="poop-deco" style="top:8%; left:3%; animation-delay:0s;">💩</span>
+  <span class="poop-deco" style="top:15%; right:5%; animation-delay:2s; font-size:40px;">💩</span>
+  <span class="poop-deco" style="bottom:20%; left:8%; animation-delay:4s; font-size:80px;">💩</span>
+  <span class="poop-deco" style="bottom:30%; right:6%; animation-delay:1.5s; font-size:50px;">💩</span>
+
+  <div class="badge">💩 The Most Royal Meme on TON 💩</div>
+
+  <div class="logo-wrap">
+    <img src="imagem.png" alt="KAKASHKA — Deployed by Pavel Durov" class="logo-img">
+  </div>
+
+  <div class="ticker">$KAKASHKA</div>
+  <p class="tagline">The legendary shitcoin personally deployed by <strong>Pavel Durov</strong>, founder of Telegram & TON — straight from the blockchain, no cap.</p>
+
+  <div class="cta-row">
+    <a href="https://tonviewer.com/EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF" target="_blank" class="btn btn-primary">💩 Buy $KAKASHKA</a>
+    <a href="#proof" class="btn btn-secondary">🔍 See the Proof</a>
+  </div>
+</section>
+
+<!-- CONTRACT BAR -->
+<div class="contract-bar">
+  <div class="contract-label">Contract Address · TON Blockchain</div>
+  <span onclick="navigator.clipboard.writeText('EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF'); this.innerText='✅ Copied!'; setTimeout(()=>this.innerText='EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF', 2000)">EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF</span>
+</div>
+
+<!-- WAVE -->
+<div class="wave-divider">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#FFD600"/>
+  </svg>
+</div>
+
+<div class="sections">
+
+  <!-- PROOF SECTION -->
+  <div class="section" id="proof">
+    <div class="section-title reveal">🔍 The Proof is On-Chain</div>
+    <p class="section-sub reveal">Follow the money — it all traces back to Pavel Durov.</p>
+
+    <div class="proof-chain">
+      <div class="proof-card reveal">
+        <span class="proof-step">STEP 1</span>
+        <h3>💰 Durov's Main Wallet Funds the Operation</h3>
+        <p>Pavel Durov's verified main wallet (labeled <strong>"Pavel Durov"</strong> on TONviewer) sent <strong>0.777 TON</strong> to a side wallet with the message payload <em>"Пашка какашка"</em> — seeding the deploy.</p>
+        <div class="address">From: UQCGdp0W...B6mDUROV → To: (side wallet 1)</div>
+        <div class="tx-badge"><span class="tx-dot"></span> Confirmed · Payload: "Пашка какашка"</div><br>
+        <a class="proof-link" href="https://tonviewer.com/transaction/7a..." target="_blank">View tx on TONviewer ↗</a>
+      </div>
+
+      <div class="proof-arrow">⬇️</div>
+
+      <div class="proof-card reveal">
+        <span class="proof-step">STEP 2</span>
+        <h3>💸 Side Wallet 1 Funds Side Wallet 2</h3>
+        <p>The same wallet (Durov's side1) sent <strong>33.21 TON (~$89.88)</strong> to a second wallet — staging the funds for the token deployment.</p>
+        <div class="address">UQCGdp0W...B6mDUROV → UQCu608v...KHJ0joQW</div>
+        <div class="tx-badge"><span class="tx-dot"></span> Confirmed · 33.21 TON</div><br>
+        <a class="proof-link" href="https://tonviewer.com/transaction/22..." target="_blank">View tx on TONviewer ↗</a>
+      </div>
+
+      <div class="proof-arrow">⬇️</div>
+
+      <div class="proof-card reveal">
+        <span class="proof-step">STEP 3</span>
+        <h3>🚀 $KAKASHKA Deployed from Side Wallet 2</h3>
+        <p>Side wallet 2, funded directly by Durov's chain, deployed the <strong>$KAKASHKA</strong> contract on TON. The token is <strong>1 month old</strong> and was never shilled anywhere before today.</p>
+        <div class="address">Contract: EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF</div>
+        <div class="tx-badge"><span class="tx-dot"></span> Deployed · Contract Verified</div><br>
+        <a class="proof-link" href="https://tonviewer.com/transaction/595f851568124560bd79d66806bc53ddd61764a0274e1ddfc65ffb9a876fbafc" target="_blank">View deploy tx on TONviewer ↗</a>
+      </div>
+    </div>
+
+    <!-- Tweet proof -->
+    <div style="margin-top:40px;" class="reveal">
+      <div class="section-title" style="font-size:clamp(28px,5vw,44px); margin-bottom:16px;">🐦 The Thread That Broke CT</div>
+      <div class="tweet-embed">
+        <div class="tweet-header">
+          <div class="tweet-avatar">💩</div>
+          <div>
+            <div class="tweet-name">sonik</div>
+            <div class="tweet-handle">@sonikcrypto</div>
+          </div>
+        </div>
+        <div class="tweet-body">
+          PAVEL DUROV DEPLOYED <span class="highlight">$KAKASHKA</span> ON TON!<br><br>
+          <span style="font-family:monospace; font-size:12px; color:#aaa;">EQA7TlgBbbGwBVgSElhDu1CWJV7NCT1jmr0xfVISdeGNPDNF</span><br><br>
+          Check the thread with proofs: 📥<br><br>
+          <span class="green">→ Durov's main wallet was funded by Durov's side1<br>
+          → Durov's side1 sent money to Durov's side2<br>
+          → Durov's side2 deployed $KAKASHKA</span><br><br>
+          <em style="color:#aaa; font-size:13px;">"Also, the token is 1month old, when no one was trading on TON, and it wasn't shilled in any place before today"</em>
+        </div>
+        <div class="tweet-footer">
+          10:17 PM · May 7, 2026 · <strong style="color:#fff;">1,373 Views</strong>
+          &nbsp;&nbsp;
+          <a href="https://x.com/sonikcrypto/status/2052573310139896236" target="_blank" style="color:#1d9bf0; text-decoration:none;">View original thread ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOKENOMICS -->
+  <div class="section" style="padding-top:0;">
+    <div class="section-title reveal">📊 Tokenomics</div>
+    <p class="section-sub reveal">Simple. Dirty. On-chain.</p>
+    <div class="tokenomics-grid">
+      <div class="token-card reveal">
+        <span class="emoji">🌐</span>
+        <div class="val">TON</div>
+        <div class="label">Blockchain</div>
+      </div>
+      <div class="token-card reveal">
+        <span class="emoji">💩</span>
+        <div class="val">$KAKASHKA</div>
+        <div class="label">Ticker</div>
+      </div>
+      <div class="token-card reveal">
+        <span class="emoji">🔥</span>
+        <div class="val">0%</div>
+        <div class="label">Buy/Sell Tax</div>
+      </div>
+      <div class="token-card reveal">
+        <span class="emoji">👑</span>
+        <div class="val">DUROV</div>
+        <div class="label">Deployer</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM WAVE -->
+<div class="wave-divider" style="background:var(--yellow);">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z" fill="#5C2D0A"/>
+  </svg>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">💩 $KAKASHKA</div>
+  <p>Deployed on the TON Blockchain<br>
+  Contract: <span style="font-family:monospace; font-size:11px; opacity:0.8;">EQA7TIgBbbGwBVgSEIhDu1CWJV7NCT1jmr0xfVISdeGNPDNF</span></p>
+  <p class="disclaimer">$KAKASHKA is a meme token deployed on the TON blockchain. This is not financial advice. Crypto assets are highly volatile. Do your own research. The on-chain proof of deployment is publicly verifiable on TONviewer.</p>
+</footer>
+
+<!-- TICKER TAPE BOTTOM -->
+<div class="ticker-tape">
+  <div class="ticker-inner" style="animation-direction:reverse;">
+    <span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span><span>💩 $KAKASHKA</span><span>🚀 DEPLOYED BY DUROV</span><span>💩 TON BLOCKCHAIN</span><span>🔥 BUY NOW</span>
+  </div>
+</div>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.15 });
+revealEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
